@@ -1,25 +1,35 @@
 import React from "react";
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input, Spin, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { setLoading } from "../../slice/loadingSlice";
 
-let navigate;
-const handleLogin = async (values) => {
-  const backend_url = import.meta.env.VITE_BACKEND_URL;
-  const { data } = await axios.post(`${backend_url}/user/login`, values);
-  const token = data.token;
-  localStorage.setItem("token", token);
-  navigate("/");
-};
-const onFinish = (values) => {
-  console.log("Success:", values);
-  handleLogin(values);
-};
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
 const Login = () => {
-  navigate = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const currLoading = useSelector((state) => state.loading);
+  const handleLogin = async (values) => {
+    try {
+      dispatch(setLoading(true));
+      const backend_url = import.meta.env.VITE_BACKEND_URL;
+      const { data } = await axios.post(`${backend_url}/user/login`, values);
+      const token = data.token;
+      dispatch(setLoading(false));
+      localStorage.setItem("token", token);
+      message.success("Login Successfull");
+      navigate("/");
+    } catch (error) {
+      message.error("email or password incorrect!");
+      dispatch(setLoading(false));
+    }
+  };
+  const onFinish = (values) => {
+    handleLogin(values);
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <div className="bg-slate-100 h-screen flex flex-col  items-center">
       <h1 className=" pt-5 font-bold  ">Login</h1>

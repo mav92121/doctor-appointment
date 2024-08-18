@@ -2,22 +2,23 @@ import React from "react";
 import { Button, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
-let navigate;
-const handleRegister = async (values) => {
-  const backend_url = import.meta.env.VITE_BACKEND_URL;
-  const { data } = await axios.post(`${backend_url}/user/register`, values);
-  message.success("User registered successfully");
-  navigate("/login");
-};
-const onFinish = (values) => {
-  handleRegister(values);
-};
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
 const Register = () => {
-  navigate = useNavigate();
+  const navigate = useNavigate();
+  const handleRegister = async (values) => {
+    const backend_url = import.meta.env.VITE_BACKEND_URL;
+    await axios.post(`${backend_url}/user/register`, values);
+    message.success("User registered successfully");
+    navigate("/login");
+  };
+  const onFinish = (values) => {
+    handleRegister(values);
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
     <div className="bg-slate-100 h-screen flex flex-col  items-center">
       <h1 className=" pt-5 font-bold  ">Register</h1>
