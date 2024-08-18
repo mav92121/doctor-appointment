@@ -7,6 +7,7 @@ import ProtectedRoutes from "./components/ProtectedRoutes";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import SpinLayout from "./components/SpinLayout";
+import PublicRoutes from "./components/PublicRoutes";
 
 const App = () => {
   return (
@@ -14,8 +15,22 @@ const App = () => {
       <Router>
         <SpinLayout />
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route
+            path="/login"
+            element={
+              <PublicRoutes>
+                <Login />
+              </PublicRoutes>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicRoutes>
+                <Register />
+              </PublicRoutes>
+            }
+          />
           <Route
             path="/"
             element={
