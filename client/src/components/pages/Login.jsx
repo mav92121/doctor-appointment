@@ -8,32 +8,35 @@ import { setLoading } from "../../slice/loadingSlice";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const currLoading = useSelector((state) => state.loading);
+  const loading = useSelector((state) => state.loading);
   const handleLogin = async (values) => {
     try {
       dispatch(setLoading(true));
       const backend_url = import.meta.env.VITE_BACKEND_URL;
       const { data } = await axios.post(`${backend_url}/user/login`, values);
       const token = data.token;
-      dispatch(setLoading(false));
       localStorage.setItem("token", token);
-      message.success("Login Successfull");
+      message.success("Login Successful");
       navigate("/");
     } catch (error) {
-      message.error("email or password incorrect!");
+      message.error("Email or password incorrect!");
+    } finally {
       dispatch(setLoading(false));
     }
   };
+
   const onFinish = (values) => {
     handleLogin(values);
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   return (
-    <div className="bg-slate-100 h-screen flex flex-col  items-center">
-      <h1 className=" pt-5 font-bold  ">Login</h1>
-      <div className=" mt-14 ">
+    <div className="bg-slate-100 h-screen flex flex-col items-center">
+      <h1 className="pt-5 font-bold">Login</h1>
+      <div className="mt-14">
         <div>
           <Form
             name="basic"
@@ -61,7 +64,7 @@ const Login = () => {
                 {
                   type: "email",
                   required: true,
-                  message: "Please enter you email",
+                  message: "Please enter your email",
                 },
               ]}
             >
@@ -88,18 +91,20 @@ const Login = () => {
               }}
             >
               <Button
-                className=" text-center "
+                className="text-center"
                 type="primary"
                 htmlType="submit"
+                disabled={loading} // Disable button when loading
               >
-                Submit
+                {loading ? <Spin /> : "Submit"}{" "}
+                {/* Show spinner while loading */}
               </Button>
             </Form.Item>
           </Form>
         </div>
-        <div className=" text-center ">
+        <div className="text-center">
           Don't have an account?
-          <Link className=" text-[#40a9ff] " to="/register">
+          <Link className="text-[#40a9ff]" to="/register">
             {" "}
             Register
           </Link>
@@ -108,4 +113,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;

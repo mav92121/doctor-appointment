@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import SpinLayout from "./components/SpinLayout";
 import PublicRoutes from "./components/PublicRoutes";
+import Layout from "./components/Layout";
 
 const App = () => {
   return (
@@ -35,7 +36,9 @@ const App = () => {
             path="/"
             element={
               <ProtectedRoutes>
-                <Home />
+                <Layout>
+                  <Home />
+                </Layout>
               </ProtectedRoutes>
             }
           />

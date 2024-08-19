@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 
 export const registerUser = async (req, res) => {
-  console.log(req.body);
   const { name, email, password } = req.body;
 
   try {
@@ -52,5 +51,30 @@ export const loginUser = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const userLoginSuccess = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "No token provided" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("decoded -> ", decoded);
+    const userId = decoded.id;
+    console.log("user -> ", userId);
+
+    const user = await User.findById(userId).select("-password");
+    console.log("user ", user);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(401).json({ message: "Invalid token" });
   }
 };
