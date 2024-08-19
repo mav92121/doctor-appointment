@@ -101,7 +101,7 @@ const LayoutHelper = ({ children }) => {
               <div className=" font-bold ">{user?.name}</div>
             </h1>
           </div>
-          <div className="w-full rounded-lg bg-red-200 h-[88.5vh]">
+          <div className="w-full rounded-lg p-4 border-[1px] border-solid border-gray-500  h-[88.5vh]">
             <h2></h2>
             {children}
           </div>
