@@ -103,7 +103,12 @@ const LayoutHelper = ({ children }) => {
         <div className=" h-[95vh]  w-full rounded-lg flex flex-col">
           <div className=" border-[1px] border-solid flex justify-end pr-4 items-center border-gray-500 h-[5vh] rounded-lg  mb-[1.5vh]">
             <h1 className="flex gap-4">
-              <div className="cursor-pointer">
+              <div
+                className="cursor-pointer"
+                onClick={() => {
+                  navigate("/notifications");
+                }}
+              >
                 <Badge count={user?.unseen_notifications.length}>
                   <i className="mr-2 ri-notification-line"></i>
                 </Badge>

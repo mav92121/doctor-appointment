@@ -1,21 +1,34 @@
 import React from "react";
 import LayoutHelper from "../Layout";
-import { Row, Col, Form, Input, Divider, TimePicker, Button } from "antd";
+import {
+  Row,
+  Col,
+  Form,
+  Input,
+  Divider,
+  TimePicker,
+  Button,
+  message,
+} from "antd";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
 const ApplyDoctor = () => {
-  //   const form = Form.useForm();
+  const [form] = Form.useForm();
   const user = useSelector((state) => state.user);
   const { RangePicker } = TimePicker;
   const handleOnFinish = async (value) => {
-    console.log("value -> ", value);
-    console.log("user ", user);
-    const backend_url = import.meta.env.VITE_BACKEND_URL;
-    await axios.post(`${backend_url}/user/apply-doctor-account`, {
-      ...value,
-      user_id: user._id,
-    });
+    try {
+      const backend_url = import.meta.env.VITE_BACKEND_URL;
+      await axios.post(`${backend_url}/user/apply-doctor-account`, {
+        ...value,
+        user_id: user._id,
+      });
+      message.success("Doctor applied successfully");
+      form.resetFields();
+    } catch (e) {
+      console.error(e);
+    }
   };
   const inputPerRow = 3;
   return (
@@ -23,7 +36,7 @@ const ApplyDoctor = () => {
       <div>
         <h1 className=" font-bold text-3xl mb-4 ">Apply Doctor Account</h1>
         <Divider />
-        <Form layout="vertical" onFinish={handleOnFinish}>
+        <Form form={form} layout="vertical" onFinish={handleOnFinish}>
           <Row gutter={[0, 48]}>
             <h3 className=" text-gray-700 text-lg mb-2 ">
               Personal Information

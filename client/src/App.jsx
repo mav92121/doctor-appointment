@@ -9,6 +9,7 @@ import { store } from "./store/store";
 import SpinLayout from "./components/SpinLayout";
 import PublicRoutes from "./components/PublicRoutes";
 import ApplyDoctor from "./components/pages/ApplyDoctor";
+import Notifications from "./components/pages/Notifications";
 
 const App = () => {
   return (
@@ -37,6 +38,14 @@ const App = () => {
             element={
               <ProtectedRoutes>
                 <ApplyDoctor />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/notifications"
+            element={
+              <ProtectedRoutes>
+                <Notifications />
               </ProtectedRoutes>
             }
           />
