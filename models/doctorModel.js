@@ -39,12 +39,8 @@ const doctorSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
-    from_time: {
-      type: String,
-      required: true,
-    },
-    to_time: {
-      type: String,
+    timings: {
+      type: Array,
       required: true,
     },
   },

@@ -12,7 +12,13 @@ const ApplyDoctor = () => {
     <LayoutHelper>
       <div>
         <h1 className=" font-bold text-3xl mb-4 ">Apply Doctor Account</h1>
+        <Divider />
         <Form layout="vertical" onFinish={handleOnFinish}>
+          <Row gutter={[0, 48]}>
+            <h3 className=" text-gray-700 text-lg mb-2 ">
+              Personal Information
+            </h3>
+          </Row>
           <Row gutter={[48, 48]}>
             <Col span={8}>
               <Form.Item name="first_name" required label={"First Name"}>
@@ -68,6 +74,11 @@ const ApplyDoctor = () => {
             </Col>
           </Row>
           <Divider />
+          <Row gutter={[0, 48]}>
+            <h3 className=" text-gray-700 text-lg mb-2 ">
+              Professional Information
+            </h3>
+          </Row>
           <Row gutter={[48, 48]}>
             <Col span={8}>
               <Form.Item name="department" required label={"Department"}>
