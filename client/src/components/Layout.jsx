@@ -1,9 +1,13 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const LayoutHelper = ({ children }) => {
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const location = useLocation();
-  const siderOptions = [
+  const userOptions = [
     {
       name: "Home",
       to: "/",
@@ -24,12 +28,30 @@ const LayoutHelper = ({ children }) => {
       to: "/profile",
       icon: "ri-user-line",
     },
+  ];
+  const adminOptions = [
     {
-      name: "Logout",
-      to: "/logout",
-      icon: "ri-logout-box-line",
+      name: "Home",
+      to: "/",
+      icon: "ri-home-line",
+    },
+    {
+      name: "Users",
+      to: "/users",
+      icon: "ri-user-line",
+    },
+    {
+      name: "Doctors",
+      to: "/doctors",
+      icon: "ri-user-star-line",
+    },
+    {
+      name: "Profile",
+      to: "/profile",
+      icon: "ri-user-line",
     },
   ];
+  const siderOptions = user?.is_admin ? adminOptions : userOptions;
   return (
     <div className="layout flex gap-3">
       <div className="flex items-center h-screen ">
@@ -53,16 +75,33 @@ const LayoutHelper = ({ children }) => {
                 </div>
               );
             })}
+            <div className="">
+              <Link
+                to={"/login"}
+                onClick={() => {
+                  localStorage.clear();
+                }}
+              >
+                <div className={` pl-2 flex gap-1 `}>
+                  <i className={`ri-logout-box-line`}></i>
+                  <span>Logout</span>
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
       <div className=" flex items-center h-screen w-[90vw] mr-[10px]">
         <div className=" h-[95vh]  w-full rounded-lg flex flex-col">
-          <div className=" bg-gray-900 h-[10vh] rounded-lg  mb-[1.5vh]">
-            <h1></h1>
-            header
+          <div className=" border-[1px] border-solid flex justify-end pr-4 items-center border-gray-500 h-[5vh] rounded-lg  mb-[1.5vh]">
+            <h1 className="flex gap-4">
+              <div>
+                <i className="ri-notification-line"></i>
+              </div>
+              <div className=" font-bold ">{user?.name}</div>
+            </h1>
           </div>
-          <div className="w-full rounded-lg bg-red-200 h-[83.5vh]">
+          <div className="w-full rounded-lg bg-red-200 h-[88.5vh]">
             <h2></h2>
             {children}
           </div>

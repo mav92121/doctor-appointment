@@ -29,6 +29,7 @@ const ProtectedRoutes = ({ children }) => {
   }, [user]);
 
   if (!isAuthenticated()) {
+    // localStorage.clear();
     return <Navigate to="/login" />;
   }
   return children;

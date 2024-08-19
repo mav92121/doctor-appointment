@@ -13,6 +13,22 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  is_doctor: {
+    type: Boolean,
+    default: false,
+  },
+  is_admin: {
+    type: Boolean,
+    default: false,
+  },
+  seen_notifications: {
+    type: Array,
+    default: [],
+  },
+  unseen_notifications: {
+    type: Array,
+    default: [],
+  },
 });
 
 const User = mongoose.model("user", userSchema);
