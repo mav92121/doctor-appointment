@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Badge } from "antd";
 
 const LayoutHelper = ({ children }) => {
   const user = useSelector((state) => state.user);
@@ -102,8 +103,10 @@ const LayoutHelper = ({ children }) => {
         <div className=" h-[95vh]  w-full rounded-lg flex flex-col">
           <div className=" border-[1px] border-solid flex justify-end pr-4 items-center border-gray-500 h-[5vh] rounded-lg  mb-[1.5vh]">
             <h1 className="flex gap-4">
-              <div>
-                <i className="ri-notification-line"></i>
+              <div className="cursor-pointer">
+                <Badge count={user?.unseen_notifications.length}>
+                  <i className="mr-2 ri-notification-line"></i>
+                </Badge>
               </div>
               <div className=" font-bold ">{user?.name}</div>
             </h1>

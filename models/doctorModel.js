@@ -26,10 +26,12 @@ const doctorSchema = mongoose.Schema(
       required: false,
     },
     address: {
-      type: {
-        String,
-        required: true,
-      },
+      type: String,
+      required: true,
+    },
+    experience: {
+      type: String,
+      required: true,
     },
     specialization: {
       type: String,
@@ -42,6 +44,10 @@ const doctorSchema = mongoose.Schema(
     timings: {
       type: Array,
       required: true,
+    },
+    status: {
+      type: String,
+      default: "pending",
     },
   },
   {

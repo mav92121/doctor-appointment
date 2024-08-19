@@ -1,4 +1,5 @@
 import User from "../models/userModels.js";
+import Doctor from "../models/doctorModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
@@ -76,5 +77,23 @@ export const userLoginSuccess = async (req, res) => {
     res.status(200).json(user);
   } catch (error) {
     res.status(401).json({ message: "Invalid token" });
+  }
+};
+
+export const applyDoctorAccount = async (req, res) => {
+  try {
+    console.log("req ", req.body);
+    const adminUser = await User.findOne({ is_admin: true });
+    const newDoctor = await Doctor.create(req.body);
+    newDoctor.save();
+    adminUser.unseen_notifications.push({
+      name: `${newDoctor?.first_name} want's to add a new doctor`,
+      details: newDoctor,
+    });
+    adminUser.save();
+    res.send(newDoctor);
+  } catch (e) {
+    console.log("err ", e);
+    res.send("something went wrong");
   }
 };

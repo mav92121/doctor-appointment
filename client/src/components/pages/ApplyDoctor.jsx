@@ -1,12 +1,21 @@
 import React from "react";
 import LayoutHelper from "../Layout";
 import { Row, Col, Form, Input, Divider, TimePicker, Button } from "antd";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const ApplyDoctor = () => {
   //   const form = Form.useForm();
+  const user = useSelector((state) => state.user);
   const { RangePicker } = TimePicker;
-  const handleOnFinish = (value) => {
+  const handleOnFinish = async (value) => {
     console.log("value -> ", value);
+    console.log("user ", user);
+    const backend_url = import.meta.env.VITE_BACKEND_URL;
+    await axios.post(`${backend_url}/user/apply-doctor-account`, {
+      ...value,
+      user_id: user._id,
+    });
   };
   const inputPerRow = 3;
   return (
@@ -69,7 +78,7 @@ const ApplyDoctor = () => {
               </Form.Item>
             </Col>
             <Col span={24 / inputPerRow}>
-              <Form.Item name="image" required label={"Image"}>
+              <Form.Item name="website" required label={"Website"}>
                 <Input />
               </Form.Item>
             </Col>
@@ -82,12 +91,16 @@ const ApplyDoctor = () => {
           </Row>
           <Row gutter={[48, 48]}>
             <Col span={24 / inputPerRow}>
-              <Form.Item name="department" required label={"Department"}>
+              <Form.Item
+                name="specialization"
+                required
+                label={"Specialization"}
+              >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={24 / inputPerRow}>
-              <Form.Item name="profession" required label={"Profession"}>
+              <Form.Item name="address" required label={"Address"}>
                 <Input />
               </Form.Item>
             </Col>
@@ -98,11 +111,6 @@ const ApplyDoctor = () => {
             </Col>
           </Row>
           <Row gutter={[48, 48]}>
-            <Col span={24 / inputPerRow}>
-              <Form.Item name="address" required label={"Address"}>
-                <Input />
-              </Form.Item>
-            </Col>
             <Col span={24 / inputPerRow}>
               <Form.Item name="fees_per_hour" required label={"Fees Per Hour"}>
                 <Input type="number" />
