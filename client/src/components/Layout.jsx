@@ -56,7 +56,12 @@ const LayoutHelper = ({ children }) => {
     <div className="layout flex gap-3">
       <div className="flex items-center h-screen ">
         <div className=" box-border siderbar h-[95vh] w-[13vw] ml-[10px] bg-slate-300 rounded-lg">
-          <h1 className="text-center text-lg font-bold mt-4 mb-6">Mv</h1>
+          <h1
+            onClick={() => navigate("/")}
+            className="text-center text-lg font-bold mt-4 mb-6 cursor-pointer"
+          >
+            Mv
+          </h1>
           <div className="flex flex-col gap-9 m-2 justify-center">
             {siderOptions.map((ele) => {
               const isActive = location.pathname === ele.to;
@@ -64,12 +69,12 @@ const LayoutHelper = ({ children }) => {
                 <div className="">
                   <Link to={ele.to}>
                     <div
-                      className={` pl-2 flex gap-1 ${
+                      className={`justify-center lg:justify-start p-2 flex gap-1 ${
                         isActive ? " bg-slate-600 text-white  " : ""
                       }`}
                     >
                       <i className={ele.icon}></i>
-                      <span>{ele.name}</span>
+                      <span className="hidden lg:block">{ele.name}</span>
                     </div>
                   </Link>
                 </div>
@@ -82,9 +87,11 @@ const LayoutHelper = ({ children }) => {
                   localStorage.clear();
                 }}
               >
-                <div className={` pl-2 flex gap-1 `}>
+                <div
+                  className={` p-2 flex gap-1 justify-center lg:justify-start `}
+                >
                   <i className={`ri-logout-box-line`}></i>
-                  <span>Logout</span>
+                  <span className="hidden lg:block">Logout</span>
                 </div>
               </Link>
             </div>

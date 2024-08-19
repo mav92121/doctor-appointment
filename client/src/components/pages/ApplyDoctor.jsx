@@ -8,6 +8,7 @@ const ApplyDoctor = () => {
   const handleOnFinish = (value) => {
     console.log("value -> ", value);
   };
+  const inputPerRow = 3;
   return (
     <LayoutHelper>
       <div>
@@ -20,17 +21,17 @@ const ApplyDoctor = () => {
             </h3>
           </Row>
           <Row gutter={[48, 48]}>
-            <Col span={8}>
+            <Col span={24 / inputPerRow}>
               <Form.Item name="first_name" required label={"First Name"}>
                 <Input />
               </Form.Item>
             </Col>
-            <Col span={8}>
+            <Col span={24 / inputPerRow}>
               <Form.Item name="last_name" required label={"Last Name"}>
                 <Input />
               </Form.Item>
             </Col>
-            <Col span={8}>
+            <Col span={24 / inputPerRow}>
               <Form.Item
                 rules={[{ type: "email", message: "Please enter valid Email" }]}
                 name="email"
@@ -42,7 +43,7 @@ const ApplyDoctor = () => {
             </Col>
           </Row>
           <Row gutter={[48, 48]}>
-            <Col span={8}>
+            <Col span={24 / inputPerRow}>
               <Form.Item
                 rules={[
                   {
@@ -67,7 +68,7 @@ const ApplyDoctor = () => {
                 <Input />
               </Form.Item>
             </Col>
-            <Col span={8}>
+            <Col span={24 / inputPerRow}>
               <Form.Item name="image" required label={"Image"}>
                 <Input />
               </Form.Item>
@@ -80,34 +81,34 @@ const ApplyDoctor = () => {
             </h3>
           </Row>
           <Row gutter={[48, 48]}>
-            <Col span={8}>
+            <Col span={24 / inputPerRow}>
               <Form.Item name="department" required label={"Department"}>
                 <Input />
               </Form.Item>
             </Col>
-            <Col span={8}>
+            <Col span={24 / inputPerRow}>
               <Form.Item name="profession" required label={"Profession"}>
                 <Input />
               </Form.Item>
             </Col>
-            <Col span={8}>
+            <Col span={24 / inputPerRow}>
               <Form.Item name="experience" required label={"Experience"}>
                 <Input type="number" />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={[48, 48]}>
-            <Col span={8}>
+            <Col span={24 / inputPerRow}>
               <Form.Item name="address" required label={"Address"}>
                 <Input />
               </Form.Item>
             </Col>
-            <Col span={8}>
+            <Col span={24 / inputPerRow}>
               <Form.Item name="fees_per_hour" required label={"Fees Per Hour"}>
                 <Input type="number" />
               </Form.Item>
             </Col>
-            <Col span={8}>
+            <Col span={24 / inputPerRow}>
               <Form.Item name="timings" required label={"Timings"}>
                 <RangePicker style={{ width: "100%" }} />
               </Form.Item>
