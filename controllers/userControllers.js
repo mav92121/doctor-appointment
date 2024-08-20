@@ -97,3 +97,31 @@ export const applyDoctorAccount = async (req, res) => {
     res.send("something went wrong");
   }
 };
+
+export const markAllAsRead = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const user = await User.findById(id);
+    const allUnread = user.unseen_notifications;
+    user.unseen_notifications = [];
+    user.seen_notifications = [...user.seen_notifications, ...allUnread];
+    user.save();
+    res.send("marked all notifications as read successfully");
+  } catch (e) {
+    console.log(e);
+    res.send(e);
+  }
+};
+
+export const clearAllNotification = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const user = await User.findById(id);
+    user.seen_notifications = [];
+    user.save();
+    res.send("Deleted all notifications successfully");
+  } catch (e) {
+    console.log(e);
+    res.send(e);
+  }
+};

@@ -1,16 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
+import NotificationsCard from "./NotificationsCard";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { message } from "antd";
 
 const Unread = () => {
+  const user = useSelector((s) => s.user);
+  const [rerender, setRerender] = useState(true);
+  const markAllRead = async () => {
+    try {
+      const backend_url = import.meta.env.VITE_BACKEND_URL;
+      const data = await axios.post(`${backend_url}/user/mark-all-read`, {
+        id: user._id,
+      });
+      message.success(data.data);
+    } catch (e) {
+      message.error("Something went wrong");
+    }
+  };
+
   return (
-    <>
-      <h1>this is unread</h1>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit nostrum
-        quam vel, sequi corrupti minus consectetur labore dolore nesciunt
-        perferendis, omnis itaque iste officia pariatur accusantium amet error
-        maxime ea?
-      </p>
-    </>
+    <div className="relative">
+      <div
+        onClick={markAllRead}
+        className=" absolute z-20 right-3 top-1 underline cursor-pointer hover:text-[#1677FF]"
+      >
+        Mark all read
+      </div>
+      {user?.unseen_notifications.map((message) => (
+        <NotificationsCard messages={message} />
+      ))}
+    </div>
   );
 };
 
