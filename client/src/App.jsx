@@ -10,6 +10,8 @@ import SpinLayout from "./components/SpinLayout";
 import PublicRoutes from "./components/PublicRoutes";
 import ApplyDoctor from "./components/pages/ApplyDoctor";
 import Notifications from "./components/pages/Notifications";
+import DoctorsList from "./components/admin/DoctorsList";
+import UsersList from "./components/admin/UsersList";
 
 const App = () => {
   return (
@@ -46,6 +48,22 @@ const App = () => {
             element={
               <ProtectedRoutes>
                 <Notifications />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/doctors"
+            element={
+              <ProtectedRoutes>
+                <DoctorsList />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              <ProtectedRoutes>
+                <UsersList />
               </ProtectedRoutes>
             }
           />
