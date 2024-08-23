@@ -106,7 +106,7 @@ export const markAllAsRead = async (req, res) => {
     user.unseen_notifications = [];
     user.seen_notifications = [...user.seen_notifications, ...allUnread];
     user.save();
-    res.send("marked all notifications as read successfully");
+    res.send(user);
   } catch (e) {
     console.log(e);
     res.send(e);
@@ -119,7 +119,7 @@ export const clearAllNotification = async (req, res) => {
     const user = await User.findById(id);
     user.seen_notifications = [];
     user.save();
-    res.send("Deleted all notifications successfully");
+    res.send(user);
   } catch (e) {
     console.log(e);
     res.send(e);
