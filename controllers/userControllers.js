@@ -125,3 +125,8 @@ export const clearAllNotification = async (req, res) => {
     res.send(e);
   }
 };
+
+export const getAllUsers = async (req, res) => {
+  const users = await User.find({ is_admin: false });
+  return res.send(users);
+};

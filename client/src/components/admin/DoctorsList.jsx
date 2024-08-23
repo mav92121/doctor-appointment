@@ -17,7 +17,15 @@ const DoctorsList = () => {
     { title: "Name", dataIndex: "first_name", key: "name" },
     { title: "Email", dataIndex: "email", key: "email" },
     { title: "Phone Number", dataIndex: "phone_number", key: "phone_number" },
-    { title: "Created At", dataIndex: "createdAt", key: "createdAt" },
+    {
+      title: "Created At",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (text, act) => {
+        const date = new Date(text);
+        return date.toLocaleDateString();
+      },
+    },
     {
       title: "Actions",
       dataIndex: "actions",
@@ -26,7 +34,6 @@ const DoctorsList = () => {
     },
   ];
 
-  console.log("doc ", doctors);
   return (
     <div>
       <LayoutHelper>
